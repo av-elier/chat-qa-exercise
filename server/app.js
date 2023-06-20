@@ -1,9 +1,12 @@
 import express from 'express';
 import http from 'http';
 import { WebSocketServer } from 'ws';
+import { ChatEngine } from './chat-engine.js';
 
 const hostname = '127.0.0.1';
 const port = 3000;
+
+const engine = new ChatEngine();
 
 // ws
 let wsMap = new Map();
@@ -21,6 +24,8 @@ app.post('/msg', function(req, res) {
   let userId = req.headers['x-user-id'];
   let body = (req.body);
   wsMap.get(userId).send(JSON.stringify({'from': userId, 'data': req.body}));
+
+  engine.publish(userId, JSON.stringify(body));
   res.send('ok');
 })
 
