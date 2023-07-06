@@ -1,15 +1,19 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import http from 'http';
 import { WebSocketServer } from 'ws';
 import { ChatEngine } from './chat-engine.js';
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 3010;
 
 const engine = new ChatEngine();
 
 // ws
 let wsMap = new Map();
+
+// users
+let userMap = new Map();
 
 // REST API
 const app = express()
@@ -18,8 +22,30 @@ app.use('/', function(req, res, next) {
   next();
 })
 app.use('/', express.static('client/static'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
 app.use(express.json())    // <==== parse request body as JSON
+app.post('/login', function(req, res) {
+  let login = req.body.uname;
+  let pass = req.body.pass;
+  console.log(`login attempt from ${login} with pass ${pass}`);
+  let savedPass = userMap.get(login);
+  if (savedPass == null) {
+    userMap.set(login, pass);
+    savedPass = pass;
+  }
+  if (savedPass != pass) {
+    res.sendStatus(403);
+    return;
+  }
+  res.cookie('session', login);
+  res.redirect('back');
+})
+app.post('/logout', function(req, res) {
+  res.clearCookie('session');
+  res.redirect('back');
+})
 app.post('/msg', function(req, res) {
   let userId = req.headers['x-user-id'];
   let body = (req.body);

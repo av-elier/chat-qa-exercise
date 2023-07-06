@@ -1,8 +1,49 @@
 <html>
 <head>
-    <title>chat qa exercise</title>
+  <title>chat qa exercise</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
-    Here be dragons
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form class="login" action="login" method="post">
+          <div class="input-group mb-3">
+              <input placeholder="email@domain.com" name="uname" type="email" class="form-control" required>
+              <input placeholder="password" name="pass" type="password" class="form-control">
+              <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+      <div class="col">
+        <form class="logout" action="logout" method="post">
+          <div class="input-group mb-3">
+            <button type="submit" class="btn btn-warning">Logout</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container" data-bs-spy="scroll">
+    <div class="row">
+      <div class="col contacts ">
+        <div>Bot</div><div>You</div>
+      </div>
+      <div class="col-10 messages">
+        <div>Here be dragons</div>
+        <div>Here be dragons</div>
+        <div>Here be dragons</div>
+        <div>Here be dragons</div>
+        <div>Here be dragons</div>
+      </div>
+    </div>
+    <div class="row">
+      <form class="msg-input" >
+        <input placeholder="Message" class="form-control">
+      </form>
+    </div>
+  </div>
 </body>
 </html>
